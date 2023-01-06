@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZIF0lp+Mgp2nKz9MJ2/tITCT77Fv3JlAE0Suz3PfLkaLjowWQWaLwNGR1Jg+vlmSlCw0fZI1aDLYPrRvc3Oy2A==",
+  "success": true,
+  "projectFilePath": "E:\\CodeProjects\\net\\MealPlanner\\MealPlanner\\MealPlanner.WebScraper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\kertz\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\kertz\\.nuget\\packages\\selenium.webdriver\\4.7.0\\selenium.webdriver.4.7.0.nupkg.sha512",
+    "C:\\Users\\kertz\\.nuget\\packages\\selenium.webdriver.chromedriver\\108.0.5359.7100\\selenium.webdriver.chromedriver.108.0.5359.7100.nupkg.sha512"
+  ],
+  "logs": []
+}
