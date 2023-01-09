@@ -1,4 +1,5 @@
-﻿using MealPlanner.WebScraper.Models;
+﻿using MealPlanner.WebScraper;
+using MealPlanner.WebScraper.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
@@ -6,12 +7,12 @@ using System.Collections.Generic;
 
 namespace MealPlanner
 {
-    class Program
+    static class Program
     {
-        private WebScraper.ScraperHelper scraperHelper = new WebScraper.ScraperHelper();
         static void Main(string[] args)
         {
-            Program scraper = new Program();  
+            ScraperHelper scraperHelper = new WebScraper.ScraperHelper();
+            //Program scraper = new Program();  
             WebDriver driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
             driver.Navigate().GoToUrl("https://www.mypricechopper.com/savings/weekly-ad");
@@ -24,17 +25,17 @@ namespace MealPlanner
 
             System.Threading.Thread.Sleep(3000);
 
-            List<SaleItem> meatOnSale = scraper.getMeatSaleItems(driver);
-            List<SaleItem> produceOnSale = scraper.getProduceSaleItems(driver);
-            List<SaleItem> dairyOnSale = scraper.getDairySaleItems(driver);
-            List<SaleItem> packagedMeatOnSale = scraper.getPackagedMeatSaleItems(driver);
-            List<SaleItem> groceryOnSale = scraper.getGrocerySaleItems(driver);
-            List<SaleItem> seafoodOnSale = scraper.getSeafoodSaleItems(driver);
-            //List<SaleItem> itemsOnSale = getFormattedSaleItems(driver,null);
+            List<SaleItem> meatOnSale = getMeatSaleItems(driver, scraperHelper);
+            List<SaleItem> produceOnSale = getProduceSaleItems(driver, scraperHelper);
+            List<SaleItem> dairyOnSale = getDairySaleItems(driver, scraperHelper);
+            List<SaleItem> packagedMeatOnSale = getPackagedMeatSaleItems(driver, scraperHelper);
+            List<SaleItem> groceryOnSale = getGrocerySaleItems(driver, scraperHelper);
+            List<SaleItem> seafoodOnSale = getSeafoodSaleItems(driver, scraperHelper);
+
             driver.Close();
         }
 
-        public List<SaleItem> getMeatSaleItems(WebDriver driver)
+        public static List<SaleItem> getMeatSaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             // filter out meat items by clicking the checkbox and then collect the filtered items
             var meatItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[3]/label";
@@ -42,72 +43,72 @@ namespace MealPlanner
 
             int meatSaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var meatItems = getSaleItemsFromGrid(driver, meatSaleItemCount, "Meat");
+            var meatItems = getSaleItemsFromGrid(driver, meatSaleItemCount, "Meat", scraperHelper);
             driver.FindElement(By.XPath(meatItemCheckboxXPath)).Click();
             return meatItems;
         }
 
-        public List<SaleItem> getProduceSaleItems(WebDriver driver)
+        public static List<SaleItem> getProduceSaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             var produceItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[4]/label";
             driver.FindElement(By.XPath(produceItemCheckboxXPath)).Click();
 
             int produceSaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var produceItems = getSaleItemsFromGrid(driver, produceSaleItemCount, "Produce");
+            var produceItems = getSaleItemsFromGrid(driver, produceSaleItemCount, "Produce", scraperHelper);
             driver.FindElement(By.XPath(produceItemCheckboxXPath)).Click();
             return produceItems;
         }
 
-        public List<SaleItem> getDairySaleItems(WebDriver driver)
+        public static List<SaleItem> getDairySaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             var dairyItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[6]/label";
             driver.FindElement(By.XPath(dairyItemCheckboxXPath)).Click();
 
             int produceSaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var dairyItems = getSaleItemsFromGrid(driver, produceSaleItemCount, "Dairy");
+            var dairyItems = getSaleItemsFromGrid(driver, produceSaleItemCount, "Dairy", scraperHelper);
             driver.FindElement(By.XPath(dairyItemCheckboxXPath)).Click();
             return dairyItems;
         }
 
-        public List<SaleItem> getPackagedMeatSaleItems(WebDriver driver)
+        public static List<SaleItem> getPackagedMeatSaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             var packedMeatItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[7]/label";
             driver.FindElement(By.XPath(packedMeatItemCheckboxXPath)).Click();
 
             int packagedMeatSaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var packagedMeatItems = getSaleItemsFromGrid(driver, packagedMeatSaleItemCount, "PackagedMeat");
+            var packagedMeatItems = getSaleItemsFromGrid(driver, packagedMeatSaleItemCount, "PackagedMeat", scraperHelper);
             driver.FindElement(By.XPath(packedMeatItemCheckboxXPath)).Click();
             return packagedMeatItems;
         }
 
-        public List<SaleItem> getGrocerySaleItems(WebDriver driver)
+        public static List<SaleItem> getGrocerySaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             var groceryItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[5]/label";
             driver.FindElement(By.XPath(groceryItemCheckboxXPath)).Click();
 
             int grocerySaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var groceryItems = getSaleItemsFromGrid(driver, grocerySaleItemCount, "Grocery");
+            var groceryItems = getSaleItemsFromGrid(driver, grocerySaleItemCount, "Grocery", scraperHelper);
             driver.FindElement(By.XPath(groceryItemCheckboxXPath)).Click();
             return groceryItems;
         }
 
-        public List<SaleItem> getSeafoodSaleItems(WebDriver driver)
+        public static List<SaleItem> getSeafoodSaleItems(WebDriver driver, ScraperHelper scraperHelper)
         {
             var seafoodItemCheckboxXPath = "/html/body/content-wrapper/div[3]/div[3]/div[2]/div[2]/div[4]/div[1]/div/div[2]/div[2]/div/div[8]/label";
             driver.FindElement(By.XPath(seafoodItemCheckboxXPath)).Click();
 
             int seafoodSaleItemCount = scraperHelper.getSaleItemCount(driver);
 
-            var seafoodItems = getSaleItemsFromGrid(driver, seafoodSaleItemCount, "Seafood");
+            var seafoodItems = getSaleItemsFromGrid(driver, seafoodSaleItemCount, "Seafood", scraperHelper);
             driver.FindElement(By.XPath(seafoodItemCheckboxXPath)).Click();
             return seafoodItems;
         }
 
-        public List<SaleItem> getSaleItemsFromGrid(WebDriver driver, int saleItemCount, String departmentName)
+        public static List<SaleItem> getSaleItemsFromGrid(WebDriver driver, int saleItemCount, String departmentName, ScraperHelper scraperHelper)
         {
             List<SaleItem> saleItems = new List<SaleItem>();
 
