@@ -1,4 +1,4 @@
-package com.example.MealPlanner.Service;
+package com.example.MealPlanner.Services;
 
 import com.example.MealPlanner.WebScraper.Models.Enums.Department;
 import com.example.MealPlanner.WebScraper.Models.Enums.SaleItemSuffix;

@@ -1,9 +1,7 @@
-package com.example.MealPlanner;
+package com.example.MealPlanner.Controllers;
 
 import com.example.MealPlanner.WebScraper.Models.SaleItem;
-import com.example.MealPlanner.WebScraper.WebScraper;
-import com.example.MealPlanner.Service.SaleItemService;
-import org.openqa.selenium.WebDriver;
+import com.example.MealPlanner.Services.SaleItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
