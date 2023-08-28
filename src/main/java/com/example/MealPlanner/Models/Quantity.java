@@ -2,28 +2,31 @@ package com.example.MealPlanner.Models;
 
 import jakarta.persistence.*;
 
-public class Quantity
+import java.io.Serializable;
+
+@Entity
+public class Quantity implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long quantityId;
+    private Long Id;
     private float quantityAmount;
     @ManyToOne
-    private Long measurementId;
+    private Measurement measurement;
 
-    public Quantity(Long quantityId, float quantityAmount, Long measurementId) {
-        this.quantityId = quantityId;
+    public Quantity(Long quantityId, float quantityAmount, Measurement measurementId) {
+        this.Id = quantityId;
         this.quantityAmount = quantityAmount;
-        this.measurementId = measurementId;
+        this.measurement = measurement;
     }
 
     public Long getQuantityId() {
-        return quantityId;
+        return Id;
     }
 
     public void setQuantityId(Long quantityId) {
-        this.quantityId = quantityId;
+        this.Id = quantityId;
     }
 
     public float getQuantityAmount() {
@@ -34,11 +37,11 @@ public class Quantity
         this.quantityAmount = quantityAmount;
     }
 
-    public Long getMeasurementId() {
-        return measurementId;
+    public Measurement getMeasurement() {
+        return measurement;
     }
 
-    public void setMeasurementId(Long measurementId) {
-        this.measurementId = measurementId;
+    public void setMeasurement(Measurement measurement) {
+        this.measurement = measurement;
     }
 }

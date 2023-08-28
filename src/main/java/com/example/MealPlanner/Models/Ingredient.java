@@ -2,34 +2,37 @@ package com.example.MealPlanner.Models;
 
 import jakarta.persistence.*;
 
-public class Ingredient
+import java.io.Serializable;
+
+@Entity
+public class Ingredient implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long ingredientId;
+    private Long Id;
     private String ingredientName;
     @ManyToOne
     private Quantity quantity;
     @ManyToOne
-    private Long departmentId;
+    private Department department;
     @OneToOne
-    private Long recipeId;
+    private Recipe recipe;
 
-    public Ingredient(Long ingredientId, String ingredientName, Quantity quantity, Long departmentId, Long recipeId) {
-        this.ingredientId = ingredientId;
+    public Ingredient(Long ingredientId, String ingredientName, Quantity quantity, Department department, Recipe recipe) {
+        this.Id = ingredientId;
         this.ingredientName = ingredientName;
         this.quantity = quantity;
-        this.departmentId = departmentId;
-        this.recipeId = recipeId;
+        this.department = department;
+        this.recipe = recipe;
     }
 
     public Long getIngredientId() {
-        return ingredientId;
+        return Id;
     }
 
     public void setIngredientId(Long ingredientId) {
-        this.ingredientId = ingredientId;
+        this.Id = ingredientId;
     }
 
     public String getIngredientName() {
@@ -48,19 +51,19 @@ public class Ingredient
         this.quantity = quantity;
     }
 
-    public Long getDepartmentId() {
-        return departmentId;
+    public Recipe getRecipe() {
+        return recipe;
     }
 
-    public void setDepartmentId(Long departmentId) {
-        this.departmentId = departmentId;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 
-    public Long getRecipeId() {
-        return recipeId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

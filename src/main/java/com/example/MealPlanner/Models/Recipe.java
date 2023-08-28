@@ -1,18 +1,17 @@
 package com.example.MealPlanner.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Recipe
+@Entity
+public class Recipe implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long recipeId;
+    private Long Id;
     @Column(nullable = false)
     private String recipeName;
     private Date lastMadeOn;
@@ -22,7 +21,7 @@ public class Recipe
     private String season;
 
     public Recipe(Long recipeId, String recipeName, Date lastMadeOn, int rating, String region, int difficulty, String season) {
-        this.recipeId = recipeId;
+        this.Id = recipeId;
         this.recipeName = recipeName;
         this.lastMadeOn = lastMadeOn;
         this.rating = rating;
@@ -32,11 +31,11 @@ public class Recipe
     }
 
     public Long getRecipeId() {
-        return recipeId;
+        return Id;
     }
 
     public void setRecipeId(Long recipeId) {
-        this.recipeId = recipeId;
+        this.Id = recipeId;
     }
 
     public String getRecipeName() {

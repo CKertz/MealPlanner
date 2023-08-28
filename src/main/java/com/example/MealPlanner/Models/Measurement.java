@@ -1,29 +1,29 @@
 package com.example.MealPlanner.Models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
-public class Measurement
+import java.io.Serializable;
+
+@Entity
+public class Measurement implements Serializable
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long measurementId;
+    private Long Id;
     private String measurementName;
 
     public Measurement(Long measurementId, String measurementName) {
-        this.measurementId = measurementId;
+        this.Id = measurementId;
         this.measurementName = measurementName;
     }
 
     public Long getMeasurementId() {
-        return measurementId;
+        return Id;
     }
 
     public void setMeasurementId(Long measurementId) {
-        this.measurementId = measurementId;
+        this.Id = measurementId;
     }
 
     public String getMeasurementName() {
